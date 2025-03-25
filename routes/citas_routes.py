@@ -17,8 +17,8 @@ citas_collection = db['citas']
 
 # Función para enviar notificación por WhatsApp
 def enviar_whatsapp(nombre, fecha, hora, servicio):
-    telefono = "5212229141895"  # ← Cambia esto por tu número de WhatsApp con lada (ej. 5212221234567)
-    api_key = "3954495"      # ← Reemplaza con tu API Key de CallMeBot
+    telefono = os.getenv("WHATSAPP_NUMBER")
+    api_key = os.getenv("WHATSAPP_API_KEY")
 
     mensaje = f"Nueva cita agendada:\n📌 Nombre: {nombre}\n📅 Fecha: {fecha} {hora}\n💼 Servicio: {servicio}"
 
@@ -31,9 +31,10 @@ def enviar_whatsapp(nombre, fecha, hora, servicio):
 
     try:
         response = requests.get(url, params=params)
-        print("✅ WhatsApp enviado" if response.status_code == 200 else "❌ Error al enviar WhatsApp")
+        print("✅ WhatsApp enviado" if response.status_code == 200 else f"❌ Error {response.status_code}: {response.text}")
     except Exception as e:
         print("❌ Error enviando WhatsApp:", str(e))
+
 
 
 # Ruta para crear nueva cita
