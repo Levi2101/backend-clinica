@@ -6,3 +6,4 @@ python-dotenv
 flask-bcrypt
 flask-jwt-extended
 gunicorn
+requests
