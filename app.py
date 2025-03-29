@@ -9,7 +9,9 @@ from routes.citas_routes import cita_bp
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+#permitir solo el de mi pagina
+#CORS(app, resources={r"/*": {"origins": ["https://clinica-7d2a8.web.app"]}})
 
 # Clave secreta JWT
 app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY", "clave-super-secreta")
