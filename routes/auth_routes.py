@@ -33,6 +33,11 @@ def register():
     password = data.get('password', '')
     rol = data.get('rol', 'usuario')
 
+    # Nuevos campos
+    nombre = data.get('nombre', '').strip()
+    fecha_nacimiento = data.get('fechaNacimiento', '').strip()
+    sexo = data.get('sexo', '').strip()
+
     if not email_valido(email):
         return jsonify({ "error": "Email no válido" }), 400
 
@@ -48,10 +53,14 @@ def register():
     usuarios_collection.insert_one({
         "email": email,
         "password": hashed_password,
-        "rol": rol
+        "rol": rol,
+        "nombre": nombre,
+        "fechaNacimiento": fecha_nacimiento,
+        "sexo": sexo
     })
 
     return jsonify({ "mensaje": "Usuario registrado correctamente" }), 201
+
 
 # Login con límite de intentos
 @auth_bp.route('/api/login', methods=['POST'])
